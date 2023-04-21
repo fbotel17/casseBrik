@@ -1,6 +1,8 @@
 ﻿#include "Ball.h"
+#include "Player.h"
 
 bool Ball::isRandInitialized = false;
+
 
 double Ball::randomizeAngle()
 {
@@ -64,41 +66,62 @@ void Ball::setPosition(sf::Vector2f newPosition)
 	oldPosition = position;
 }
 
+sf::Vector2f Ball::getPosition()
+{
+	return position;
+}
+
 void Ball::setDirection(sf::Vector2f newDirection)
 {
 	direction = newDirection;
 }
 
 
-void Ball::manageCollisionWith(sf::RenderWindow& window)
+void Ball::manageCollisionWith(Player& player, sf::RenderWindow& window)
 {
+
+
 	window.getSize().x;
 	window.getSize().y;
+
+	// Vérifier si la balle touche la plateforme
+	sf::Vector2f playerPos = player.getPosition();
+	sf::Vector2f playerSize = player.getSize();
+
+	if (position.x + 2 * radius >= playerPos.x && position.x <= playerPos.x + playerSize.x &&
+		position.y + 2 * radius >= playerPos.y && position.y <= playerPos.y + playerSize.y)
+	{
+		// Inverser la direction sur l'axe y
+		direction.y *= -1;
+	}
+
+
 	//Si la balle sort de l'�cran (par en haut)
 	if (position.y <= 0)
 	{
-		//Inverse la direction sur l'axe y :
+		// Inverse la direction sur l'axe y :
 		direction.y *= -1;
+		position.y = 0;
 	}
-
-	//Si la balle sort de l'�cran (par en haut)
-	if (position.y >= (window.getSize().y) - 2 * radius)
+	else if (position.y + 2 * radius >= window.getSize().y)
 	{
-		//Inverse la direction sur l'axe y :
 		direction.y *= -1;
+		position.y = window.getSize().y - 2 * radius;
 	}
 
-	//Si la balle sort de l'�cran (par en haut)
 	if (position.x <= 0)
 	{
-		//Inverse la direction sur l'axe y :
 		direction.x *= -1;
+		position.x = 0;
 	}
-	if (position.x >= (window.getSize().x) - 2 * radius)
+	else if (position.x + 2 * radius >= window.getSize().x)
 	{
-		//Inverse la direction sur l'axe y :
 		direction.x *= -1;
+		position.x = window.getSize().x - 2 * radius;
 	}
+
+
+	
 
 
 }

@@ -1,5 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Ball.h"
+#include "Player.h"
+
 
 double mapValue(double x, double a, double b, double c, double d) {
 	double y = (x - a) / (b - a) * (d - c) + c;
@@ -10,6 +12,7 @@ double mapValue(double x, double a, double b, double c, double d) {
 int main(int argc, char** argv)
 {
 	Ball ball(200, 250, 10, 600);
+	Player player(500, 100, 10);
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ma magnifique fenetre");
 
 	sf::RectangleShape rectangle;
@@ -49,7 +52,8 @@ int main(int argc, char** argv)
 		}
 
 		ball.move(ellapsedTime);
-		ball.manageCollisionWith(window);
+
+		ball.manageCollisionWith(player, window);
 
 		window.clear();
 
@@ -65,9 +69,12 @@ int main(int argc, char** argv)
 			rdr2.setPosition(0, i);
 			window.draw(rdr2);*/
 		}
+
+
 		window.draw(rectangle);
 		window.draw(circle);
 		ball.draw(window);
+		player.draw(window);
 		window.display();
 	}
 

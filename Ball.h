@@ -1,4 +1,6 @@
 #pragma once
+#include "Player.h"
+
 
 #include <SFML/Graphics.hpp>
 
@@ -23,6 +25,8 @@ public:
 	void setSpeed(float newSpeed);
 	void setPosition(sf::Vector2f newPosition);
 	void setDirection(sf::Vector2f newDirection);
-	//sf::Vector2f getPosition();
-	void manageCollisionWith(sf::RenderWindow& window);
+	sf::Vector2f getPosition();
+	void manageCollisionWith(Player& player, sf::RenderWindow& window);
+
+
 };
