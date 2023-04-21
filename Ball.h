@@ -12,6 +12,8 @@ private:
 	sf::Vector2f position;
 	float speed;
 	int radius;
+	int collisionCount; // Compteur de collisions avec le joueur
+
 	sf::Vector2f direction;
 	static bool isRandInitialized;
 	double randomizeAngle();
@@ -27,6 +29,8 @@ public:
 	void setDirection(sf::Vector2f newDirection);
 	sf::Vector2f getPosition();
 	void manageCollisionWith(Player& player, sf::RenderWindow& window);
+	void update(float deltaTime, Player& player, sf::RenderWindow& window);
+
 
 
 };

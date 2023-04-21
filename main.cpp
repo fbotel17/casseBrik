@@ -1,6 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Ball.h"
 #include "Player.h"
+#include "Brick.h"
 
 
 double mapValue(double x, double a, double b, double c, double d) {
@@ -13,9 +14,16 @@ int main(int argc, char** argv)
 {
 	Ball ball(200, 250, 10, 600);
 	Player player(500, 100, 10);
+
+	const int NUM_BRICKS = 10; // Nombre de briques dans le tableau
+
+	Brick brick(0, 0, 100, 50, 1);
+
+
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ma magnifique fenetre");
 
-	sf::RectangleShape rectangle;
+	/*sf::RectangleShape rectangle;
 	rectangle.setSize(sf::Vector2f(100, 50));
 	rectangle.setFillColor(sf::Color::Cyan);
 	rectangle.setOutlineColor(sf::Color::Magenta);
@@ -27,7 +35,7 @@ int main(int argc, char** argv)
 	circle.setPosition(200, 170);
 	circle.setFillColor(sf::Color::Red);
 	circle.setOutlineColor(sf::Color::Yellow);
-	circle.setOutlineThickness(2);
+	circle.setOutlineThickness(2);*/
 
 	sf::RectangleShape rdr2;
 	rdr2.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -71,10 +79,11 @@ int main(int argc, char** argv)
 		}
 
 
-		window.draw(rectangle);
-		window.draw(circle);
+		/*window.draw(rectangle);
+		window.draw(circle);*/
 		ball.draw(window);
 		player.draw(window);
+		brick.draw(window);
 		window.display();
 	}
 

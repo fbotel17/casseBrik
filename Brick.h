@@ -1,19 +1,20 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
-class Player
+class Brick
 {
 private:
 	sf::RectangleShape shape;
 	sf::Vector2f position;
 	sf::Vector2f size;
-	sf::Vector2f getVelocity();
-	int y;
+	int health;
 public:
-	Player(int y, int width, int height);
-	~Player();
+	Brick(int x, int y, int width, int height, int health);
+	~Brick();
 	void draw(sf::RenderWindow& window);
+	sf::Color getColorFromLife();
+	bool isAlive();
+	void hit();
 	sf::Vector2f getPosition();
 	sf::Vector2f getSize();
 };

@@ -76,52 +76,73 @@ void Ball::setDirection(sf::Vector2f newDirection)
 	direction = newDirection;
 }
 
+void Ball::update(float deltaTime, Player& player, sf::RenderWindow& window)
+{
+    position += direction * speed * deltaTime;
+    shape.setPosition(position);
+
+    manageCollisionWith(player, window);
+
+    // Si la balle reste collée au joueur, réinitialise sa position
+    if (collisionCount > 5) {
+        position.y = player.getPosition().y - 2 * radius;
+        collisionCount = 0;
+    }
+}
 
 void Ball::manageCollisionWith(Player& player, sf::RenderWindow& window)
 {
+    float MAX_ANGLE = 45;
+    const int MARGE = 2;
 
+    // Vérifie si la balle touche le joueur
+    if (position.y + 2 * radius >= player.getPosition().y &&
+        position.y + 2 * radius <= player.getPosition().y + player.getSize().y &&
+        position.x + 2 * radius >= player.getPosition().x &&
+        position.x <= player.getPosition().x + player.getSize().x)
+    {
+        // Calcule la position relative de la balle par rapport au joueur
+        double relativeIntersectX = position.x + radius - player.getPosition().x - player.getSize().x / 2.0;
 
-	window.getSize().x;
-	window.getSize().y;
+        // Normalise la position relative de la balle
+        double normalizedRelativeIntersectionX = relativeIntersectX / (player.getSize().x / 2.0);
 
-	// Vérifier si la balle touche la plateforme
-	sf::Vector2f playerPos = player.getPosition();
-	sf::Vector2f playerSize = player.getSize();
+        // Calcule l'angle de rebond de la balle
+        double angle = normalizedRelativeIntersectionX * MAX_ANGLE;
 
-	if (position.x + 2 * radius >= playerPos.x && position.x <= playerPos.x + playerSize.x &&
-		position.y + 2 * radius >= playerPos.y && position.y <= playerPos.y + playerSize.y)
-	{
-		// Inverser la direction sur l'axe y
-		direction.y *= -1;
-	}
+        // Change la direction de la balle en fonction de l'angle de rebond
+        setAngle(angle);
 
+        // Déplace la balle en dehors du joueur
+        position.y = player.getPosition().y - 2 * radius - 0.1f;
+        direction.y = -std::abs(direction.y);
+    }
 
-	//Si la balle sort de l'�cran (par en haut)
-	if (position.y <= 0)
-	{
-		// Inverse la direction sur l'axe y :
-		direction.y *= -1;
-		position.y = 0;
-	}
-	else if (position.y + 2 * radius >= window.getSize().y)
-	{
-		direction.y *= -1;
-		position.y = window.getSize().y - 2 * radius;
-	}
+    // Vérifie si la balle touche le bord supérieur de l'écran
+    if (position.y <= 0)
+    {
+        // Inverse la direction sur l'axe y :
+        direction.y = std::abs(direction.y);
+    }
 
-	if (position.x <= 0)
-	{
-		direction.x *= -1;
-		position.x = 0;
-	}
-	else if (position.x + 2 * radius >= window.getSize().x)
-	{
-		direction.x *= -1;
-		position.x = window.getSize().x - 2 * radius;
-	}
+    // Vérifie si la balle touche le bord inférieur de l'écran
+    if (position.y >= (window.getSize().y) - 2 * radius)
+    {
+        // Inverse la direction sur l'axe y :
+        direction.y = -std::abs(direction.y);
+    }
 
+    // Vérifie si la balle touche le bord gauche de l'écran
+    if (position.x <= 0)
+    {
+        // Inverse la direction sur l'axe x :
+        direction.x = std::abs(direction.x);
+    }
 
-	
-
-
+    // Vérifie si la balle touche le bord droit de l'écran
+    if (position.x >= (window.getSize().x) - 2 * radius)
+    {
+        // Inverse la direction sur l'axe x :
+        direction.x = -std::abs(direction.x);
+    }
 }
