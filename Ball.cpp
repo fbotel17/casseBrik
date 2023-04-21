@@ -1,4 +1,4 @@
-#include "Ball.h"
+ï»¿#include "Ball.h"
 
 bool Ball::isRandInitialized = false;
 
@@ -9,7 +9,7 @@ double Ball::randomizeAngle()
 		isRandInitialized = true;
 	}
 
-	 
+
 	return (((double)rand() / (double)RAND_MAX) * 60.0) - 30.0;
 }
 
@@ -70,31 +70,31 @@ void Ball::setDirection(sf::Vector2f newDirection)
 }
 
 
-void Ball::manageCollisionWith(sf::RenderWindow& window) 
+void Ball::manageCollisionWith(sf::RenderWindow& window)
 {
 	window.getSize().x;
 	window.getSize().y;
-	//Si la balle sort de l'écran (par en haut)
+	//Si la balle sort de l'ï¿½cran (par en haut)
 	if (position.y <= 0)
 	{
 		//Inverse la direction sur l'axe y :
 		direction.y *= -1;
 	}
 
-	//Si la balle sort de l'écran (par en haut)
+	//Si la balle sort de l'ï¿½cran (par en haut)
 	if (position.y >= (window.getSize().y) - 2 * radius)
 	{
 		//Inverse la direction sur l'axe y :
 		direction.y *= -1;
 	}
 
-	//Si la balle sort de l'écran (par en haut)
+	//Si la balle sort de l'ï¿½cran (par en haut)
 	if (position.x <= 0)
 	{
 		//Inverse la direction sur l'axe y :
 		direction.x *= -1;
 	}
-	if (position.x >= (window.getSize().x) - 2*radius)
+	if (position.x >= (window.getSize().x) - 2 * radius)
 	{
 		//Inverse la direction sur l'axe y :
 		direction.x *= -1;

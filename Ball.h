@@ -26,4 +26,3 @@ public:
 	//sf::Vector2f getPosition();
 	void manageCollisionWith(sf::RenderWindow& window);
 };
-

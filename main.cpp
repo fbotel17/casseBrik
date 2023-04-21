@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+ï»¿#include <SFML/Graphics.hpp>
 #include "Ball.h"
 
 double mapValue(double x, double a, double b, double c, double d) {
@@ -7,7 +7,7 @@ double mapValue(double x, double a, double b, double c, double d) {
 }
 
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 	Ball ball(200, 250, 10, 600);
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ma magnifique fenetre");
@@ -34,20 +34,20 @@ int main(int argc, char **argv)
 	float ellapsedTime = 0;
 
 
-	// on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
+	// on fait tourner le programme jusqu'ï¿½ ce que la fenï¿½tre soit fermï¿½e
 	while (window.isOpen())
 	{
 		ellapsedTime = clock.restart().asSeconds();
 
-		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
+		// on inspecte tous les ï¿½vï¿½nements de la fenï¿½tre qui ont ï¿½tï¿½ ï¿½mis depuis la prï¿½cï¿½dente itï¿½ration
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			// évènement "fermeture demandée" : on ferme la fenêtre
+			// ï¿½vï¿½nement "fermeture demandï¿½e" : on ferme la fenï¿½tre
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		
+
 		ball.move(ellapsedTime);
 		ball.manageCollisionWith(window);
 
