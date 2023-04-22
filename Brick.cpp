@@ -5,6 +5,8 @@ Brick::Brick(int x, int y, int width, int height, int health) :
 {
     // Création de la forme rectangulaire représentant la brique
     shape = sf::RectangleShape(size);
+    shape.setOutlineThickness(2);
+    shape.setOutlineColor(sf::Color::Black);
     shape.setPosition(position);
     shape.setFillColor(getColorFromLife());
 }

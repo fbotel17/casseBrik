@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include "Player.h"
 #include "Brick.h"
+#include <deque>
 
 
 double mapValue(double x, double a, double b, double c, double d) {
@@ -15,9 +16,20 @@ int main(int argc, char** argv)
 	Ball ball(200, 250, 10, 600);
 	Player player(500, 100, 10);
 
-	const int NUM_BRICKS = 10; // Nombre de briques dans le tableau
+	int brickInitial = 100; // Nombre de briques dans le tableau
+	std::deque<Brick*> bricks;
 
-	Brick brick(0, 0, 100, 50, 1);
+	int brickWidth = 80;
+	int brickHeight = 35;
+
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 8; j++) {
+			int x = i * brickWidth ;
+			int y = j * brickHeight;
+			bricks.push_back(new Brick(x, y, brickWidth, brickHeight, 3));
+		}
+	}
+
 
 
 
@@ -83,7 +95,11 @@ int main(int argc, char** argv)
 		window.draw(circle);*/
 		ball.draw(window);
 		player.draw(window);
-		brick.draw(window);
+		// Dessin des briques
+		for (int i = 0; i < bricks.size(); i++)
+		{
+			bricks[i]->draw(window);
+		}
 		window.display();
 	}
 
