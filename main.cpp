@@ -2,7 +2,6 @@
 #include "Ball.h"
 #include "Player.h"
 #include "Brick.h"
-#include <deque>
 
 
 double mapValue(double x, double a, double b, double c, double d) {
@@ -13,7 +12,7 @@ double mapValue(double x, double a, double b, double c, double d) {
 
 int main(int argc, char** argv)
 {
-	Ball ball(200, 250, 10, 600);
+	Ball ball(200, 250, 10, 400);
 	Player player(500, 100, 10);
 
 	int brickInitial = 100; // Nombre de briques dans le tableau
@@ -79,10 +78,12 @@ int main(int argc, char** argv)
 
 		for (int i = 0; i < window.getSize().y; i++)
 		{
+
 			double mappedValue = mapValue(i, 0, window.getSize().y, 0, 255);
 			rdr2.setFillColor(sf::Color(mappedValue, 0, 0));
 			rdr2.setPosition(0, i);
 			window.draw(rdr2);
+
 
 			/*double mappedValue = mapValue(i, 0, window.getSize().y, 0, 255);
 			rdr2.setFillColor(sf::Color(mappedValue, mappedValue * xFactor.x * ellapsedTime, mappedValue * xFactor.y * ellapsedTime, mappedValue * xFactore.z * ellapsedTime));
@@ -98,7 +99,15 @@ int main(int argc, char** argv)
 		// Dessin des briques
 		for (int i = 0; i < bricks.size(); i++)
 		{
-			bricks[i]->draw(window);
+			if (bricks[i]->isAlive())
+			{
+				bricks[i]->draw(window);
+				ball.manageCollisionWithBrick(bricks[i]);
+			}
+			else
+			{
+				bricks[i]->destroyAndDelete(bricks);
+			}
 		}
 		window.display();
 	}

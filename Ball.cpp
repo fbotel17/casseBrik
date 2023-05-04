@@ -146,3 +146,60 @@ void Ball::manageCollisionWith(Player& player, sf::RenderWindow& window)
         direction.x = -std::abs(direction.x);
     }
 }
+
+void Ball::manageCollisionWithBrick(Brick* brick)
+{
+	sf::FloatRect ballBounds = shape.getGlobalBounds();
+	sf::FloatRect brickBounds = brick->getShape().getGlobalBounds();
+
+	// Vérifie si la balle touche la brique
+	if (ballBounds.intersects(brickBounds))
+	{
+		// Calcule la position relative de la balle par rapport à la brique
+		double intersectX = position.x + radius - brick->getPosition().x;
+		double intersectY = position.y + radius - brick->getPosition().y;
+		double deltaX = brick->getSize().x / 2.0 - std::abs(intersectX);
+		double deltaY = brick->getSize().y / 2.0 - std::abs(intersectY);
+
+		// Inverse la direction de la balle en fonction de l'axe de la collision
+		if (deltaX > deltaY)
+		{
+			// Collision horizontale
+			direction.x *= -1;
+			position.x += (intersectX > 0 ? deltaX : -deltaX);
+		}
+		else
+		{
+			// Collision verticale
+			direction.y *= -1;
+			position.y += (intersectY > 0 ? deltaY : -deltaY);
+		}
+
+		// Réduit la santé de la brique et change sa couleur
+		brick->hit();
+
+		// Changer la direction de la balle immédiatement après la collision
+		// en fonction de la position de la brique relative à la balle
+		if (intersectX > 0)
+		{
+			// La balle touche la brique sur le côté droit
+			direction.x = std::abs(direction.x);
+		}
+		else
+		{
+			// La balle touche la brique sur le côté gauche
+			direction.x = -std::abs(direction.x);
+		}
+
+		if (intersectY > 0)
+		{
+			// La balle touche la brique en bas
+			direction.y = std::abs(direction.y);
+		}
+		else
+		{
+			// La balle touche la brique en haut
+			direction.y = -std::abs(direction.y);
+		}
+	}
+}

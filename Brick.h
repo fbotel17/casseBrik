@@ -19,6 +19,9 @@ public:
 	void hit();
 	sf::Vector2f getPosition();
 	sf::Vector2f getSize();
+	sf::RectangleShape getShape(); // Renvoyer la forme de la brique
+	void destroyAndDelete(std::deque<Brick*>& bricks); // Supprimer la brique de la mémoire et de la deque
+
 };
 
 

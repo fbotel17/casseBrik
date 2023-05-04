@@ -64,3 +64,17 @@ sf::Vector2f Brick::getSize()
     // Accesseur de l'attribut size
     return size;
 }
+
+sf::RectangleShape Brick::getShape()
+{
+    // Renvoyer la forme de la brique
+    return shape;
+}
+
+void Brick::destroyAndDelete(std::deque<Brick*>& bricks)
+{
+    // Retirer la brique de la deque de briques
+    bricks.erase(std::remove(bricks.begin(), bricks.end(), this), bricks.end());
+    // Supprimer l'objet de la mémoire
+    delete this;
+}

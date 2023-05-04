@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Brick.h"
 
 
 #include <SFML/Graphics.hpp>
@@ -30,7 +31,7 @@ public:
 	sf::Vector2f getPosition();
 	void manageCollisionWith(Player& player, sf::RenderWindow& window);
 	void update(float deltaTime, Player& player, sf::RenderWindow& window);
-
+	void manageCollisionWithBrick(Brick* brick);
 
 
 };
