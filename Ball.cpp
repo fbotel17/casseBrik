@@ -92,6 +92,7 @@ void Ball::update(float deltaTime, Player& player, sf::RenderWindow& window)
 
 void Ball::manageCollisionWith(Player& player, sf::RenderWindow& window)
 {
+	
     float MAX_ANGLE = 45;
     const int MARGE = 2;
 
@@ -117,6 +118,22 @@ void Ball::manageCollisionWith(Player& player, sf::RenderWindow& window)
         position.y = player.getPosition().y - 2 * radius - 0.1f;
         direction.y = -std::abs(direction.y);
     }
+	
+	/*
+	double dx; sf::FloatRect ballRect;
+	ballRect.left = position.x;
+	ballRect.top = position.y;
+	ballRect.width = 2 * radius;
+	ballRect.height = 2 * radius;
+
+	sf::FloatRect playerRect(player.getPosition().x, player.getPosition().y, player.getSize().x, player.getSize().y);
+
+	if (ballRect.intersects(playerRect)) {
+		dx = position.x - player.getPosition().x;
+		dx = mapValue(dx, 0, player.getSize().x, -M_PI / 4, M_PI / 4);
+		setAngle(dx);
+	}*/
+
 
     // Vérifie si la balle touche le bord supérieur de l'écran
     if (position.y <= 0)

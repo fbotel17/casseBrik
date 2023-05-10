@@ -11,7 +11,18 @@ Player::Player(int y, int width, int height) : y(y) {
 Player::~Player() {}
 
 void Player::draw(sf::RenderWindow& window) {
-    position.x = sf::Mouse::getPosition(window).x - size.x / 2;
+	
+		position.x = sf::Mouse::getPosition(window).x - size.x / 2;
+
+		if (position.x < 0)
+		{
+			position.x = 0;
+		}
+		if (position.x + size.x > window.getSize().x)
+		{
+			position.x = window.getSize().x - size.x;
+		}
+    //position.x = sf::Mouse::getPosition(window).x - size.x / 2;
     shape.setPosition(position);
     window.draw(shape);
 }
